@@ -48,7 +48,7 @@
     width: 90%;
     border: none;
     border-radius: 10px;
-    box-shadow: inset 0px 0px 3px 1px #a46f0e;
+    box-shadow: inset 0px 0px 3px 1px #3c0201;
 }
 .errorInput:focus{
     outline: none;
