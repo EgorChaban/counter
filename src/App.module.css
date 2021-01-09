@@ -1,10 +1,13 @@
 .App {
     width: 100vw;
-    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #b3b6b3;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
 }
 
 .counterWrap{
@@ -14,6 +17,20 @@
     flex-wrap: wrap;
     width: 70%;
 }
+@media (max-width: 1080px) {
+    .counterWrap{
+        width: 100%;
+    }
+}
+@media (max-width: 752px) {
+    .App{
+        height: 100%;
+    }
+}
+@media (max-width: 455px) {
+
+}
+
 
 
 

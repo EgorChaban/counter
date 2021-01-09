@@ -4,12 +4,13 @@
     align-items: center;
     justify-content: space-around;
     background-color: darkgreen;
-    height: 300px;
-    width: 25%;
+    min-width: 18%;
     padding: 40px 20px;
     background-image: linear-gradient(#f3f6dc, #a2a296);
     box-shadow: 0px 0px 4px 1px #3b3b36;
     border-radius: 7px;
+    height: 400px;
+    margin: 0 10px 20px 10px;
 }
 
 .btnWrap{
@@ -31,6 +32,7 @@
     border: none;
     border-radius: 10px;
     box-shadow: inset 0px 0px 3px 1px #a46f0e;
+
 }
 .input:focus{
     outline: none;
@@ -52,4 +54,11 @@
 }
 .errorInput:focus{
     outline: none;
+}
+
+@media (max-width: 455px) {
+    .counter{
+        width: 100%;
+        margin-left: 0;
+    }
 }
