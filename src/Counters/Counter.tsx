@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Screen} from "../screen/Screen";
 import {Button} from "../button/Button";
 import s from './counter.module.css'
@@ -12,7 +12,8 @@ type CounterType = {
     error: boolean
 }
 
-export function Counter (props: CounterType){
+export const Counter = React.memo((props: CounterType) => {
+    console.log('counter')
     return(
         <div className={s.counter} >
             <Screen value = {props.value}
@@ -28,5 +29,5 @@ export function Counter (props: CounterType){
         </div>
 
     )
-}
+})
 

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent} from "react";
 
 import {Button} from "../button/Button";
 import s from './counter.module.css'
@@ -13,7 +13,8 @@ export type SetCounterPropsType={
 }
 
 
-export function SetCounter(props: SetCounterPropsType){
+export const SetCounter = React.memo((props: SetCounterPropsType) => {
+    console.log('setCounter')
     const inputClassName = props.error === true ? s.errorInput : s.input
 
     return(
@@ -25,4 +26,4 @@ export function SetCounter(props: SetCounterPropsType){
             </div>
         </div>
     )
-}
+})

@@ -1,69 +1,44 @@
 import s from './App.module.css';
-import React, {ChangeEvent, useState} from "react";
-
+import React, {ChangeEvent, useCallback} from "react";
 import {Counter} from "./Counters/Counter";
 import {SetCounter} from "./Counters/SetCounter";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "./redux/store";
+import {
+    changeMaxValueAC,
+    changeStartValueAC,
+    resetValueAC,
+    setCounterStartValueAC,
+    StateType, upValueAC
+} from "./redux/App-reducer";
 
 function App() {
-//STATES
-    const [value, setValue] = useState<number | 'enter values and press "set"' | 'incorrect value'>('enter values and press "set"')
-    const [maxValue, setMaxValue] = useState<number>(localStorage['max'] ? Number(localStorage['max']) : 1)
-    const [startValue, setStartValue] = useState<number>(localStorage['start'] ? Number(localStorage['start']) : 0)
-    const [error, setError] = useState<boolean>(false)
-
 
 //setCounter BLL:
 
+    const mainApp = useSelector <AppRootStateType, StateType>(state => state.mainReducer)
+    const dispatch = useDispatch()
 
-    const changeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
+    const changeMaxValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(changeMaxValueAC(e))
+    }, [Event])
 
-        const valueNumber = e.currentTarget.valueAsNumber
-        setMaxValue(valueNumber)
-        if (valueNumber < 0
-            || valueNumber === startValue
-            || valueNumber < startValue
-        ) {
-            setError(true)
-        } else {
-            setError(false)
-        }
-        if (valueNumber !== startValue) {
-            setValue('enter values and press "set"')
-        }
-    }
-    const changeStartValue = (e: ChangeEvent<HTMLInputElement>) => {
-        const valueNumber = e.currentTarget.valueAsNumber
-        setStartValue(valueNumber)
-        if (valueNumber < 0
-            || valueNumber === maxValue
-            || valueNumber > maxValue
-        ) {
-            setError(true)
-        } else {
-            setError(false)
-        }
-        if (valueNumber !== startValue) {
-            setValue('enter values and press "set"')
-        }
+    const changeStartValue = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+       dispatch(changeStartValueAC(e))
+    }, [Event])
 
-    }
-    const setCounterStartValue = () => {
-        setValue(startValue)
-        localStorage['start'] = startValue
-        localStorage['max'] = maxValue
-    }
-
+    const setCounterStartValue = useCallback(() => {
+      dispatch(setCounterStartValueAC())
+    }, [])
 
 //counter BLL:
-    const upValue = () => {
-        if (typeof value === "number") {
-            setValue(value + 1)
-        }
-    }
-    const resetValue = () => {
-        setValue(startValue)
-    }
+    const upValue = useCallback(() => {
+       dispatch(upValueAC())
+    }, [])
 
+    const resetValue = useCallback(() => {
+        dispatch(resetValueAC())
+    }, [])
 
     return (
         <div className={s.App}>
@@ -72,17 +47,17 @@ function App() {
                     setCounterStartValue={setCounterStartValue}
                     changeMaxValue={changeMaxValue}
                     changeStartValue={changeStartValue}
-                    startValue={startValue}
-                    maxValue={maxValue}
-                    error={error}
+                    startValue={mainApp.startValue}
+                    maxValue={mainApp.maxValue}
+                    error={mainApp.error}
 
                 />
                 <Counter
-                    value={value}
+                    value={mainApp.value}
                     upValue={upValue}
                     resetValue={resetValue}
-                    maxValue={maxValue}
-                    error={error}
+                    maxValue={mainApp.maxValue}
+                    error={mainApp.error}
                 />
             </div>
         </div>
